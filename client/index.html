@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+<!--
+html {
+background-color: #868A08;
+}
+.cont {
+  float: left;
+  width: 33%;
+}
+.rect {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 40px;
+  background-color: #F3F781;
+}
+.rect:hover {
+  background-color: #F2F5A9;
+}
+.rect.checked {
+  background-color: #5882FA;
+}
+.rect.checked:hover {
+  background-color: #58ACFA;
+}
+.bottom {
+  float: left;
+  width: 99%;
+  text-align: center;
+  font-size: 40px;
+}
+.panel {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 40px;
+  background-color: white;
+}
+-->
+</style>
+<script src="jquery.js"></script>
+<script src="socket.io.js"></script>
+<script>
+$( document ).ready(function() {
+  var socket = io.connect('http://localhost:8080');
+  socket.on('resp_data', function (data) {
+    $(".panel").text(data["hello"]);
+  });
+  $(".rect").click(function(){
+    if($(this).hasClass("checked")) {
+      $(this).removeClass("checked");
+    } else {
+      $(this).addClass("checked");
+    }
+  });
+  $(".panel").click(function(){
+    socket.emit('my_event');
+  });
+});
+</script>
+</head>
+<body>
+<div>
+<div class="cont"><div class="rect">a</div></div>
+<div class="cont"><div class="rect">b</div></div>
+<div class="cont"><div class="rect">c</div></div>
+<div class="cont"><div class="rect">d</div></div>
+<div class="cont"><div class="rect">e</div></div>
+<div class="cont"><div class="rect">f</div></div>
+<div class="cont"><div class="rect">g</div></div>
+<div class="cont"><div class="rect">h</div></div>
+<div class="cont"><div class="rect">i</div></div>
+<div class="bottom"><div class="panel">hello</div></div>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+client/socket.io.js
+client/jquery.js
+server/node_modules/
+*~
