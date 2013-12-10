@@ -5,6 +5,7 @@ $( document ).ready(function() {
     $("title").text(room_name);
   }
   var socket = io.connect('http://localhost:8080');
+  socket.emit("register",{'room':room_name});
   
   socket.on('check', function (data) {
     var obj = $('#'+data["id"]);
