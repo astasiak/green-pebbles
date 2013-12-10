@@ -1,4 +1,9 @@
 $( document ).ready(function() {
+
+  var room_name = $.url().param("room");
+  if(room_name) {
+    $("title").text(room_name);
+  }
   var socket = io.connect('http://localhost:8080');
   
   socket.on('check', function (data) {
