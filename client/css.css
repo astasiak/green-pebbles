@@ -1,9 +1,8 @@
 html {
 background-color: #868A08;
 }
-.cont {
-  float: left;
-  width: 33%;
+table {
+  width: 100%;
 }
 .rect {
   border-style: solid;
