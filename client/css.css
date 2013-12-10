@@ -1,0 +1,43 @@
+html {
+background-color: #868A08;
+}
+.cont {
+  float: left;
+  width: 33%;
+}
+.rect {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 40px;
+  background-color: #F3F781;
+}
+.rect:hover {
+  background-color: #F2F5A9;
+}
+.rect.checked {
+  background-color: #5882FA;
+}
+.rect.checked:hover {
+  background-color: #58ACFA;
+}
+.bottom {
+  float: left;
+  width: 99%;
+  text-align: center;
+  font-size: 40px;
+}
+.panel {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 40px;
+  background-color: white;
+}
+
