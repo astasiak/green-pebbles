@@ -5,7 +5,7 @@ html {
   width: 530px;
   margin: 100px auto;
 }
-#enterButton, .bigInput {
+#enterButton, .bigInput, #mainAlert {
   width: 500px;
   text-align: center;
   margin: 10px;
@@ -23,6 +23,13 @@ html {
 #enterButton:hover {
   background-color: #151515;
 }
+#mainAlert {
+  display: none;
+  background-color: #DBA901;
+  height: 140px;
+  padding-top: 40px;
+}
+
 table {
   width: 100%;
 }
