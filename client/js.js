@@ -5,7 +5,7 @@ $( document ).ready(function() {
   if(room_name) {
     $("title").text(room_name);
   }
-  var socket = io.connect('http://localhost:8080');
+  var socket = io.connect('http://localhost:8081');
   socket.emit("register",{'room':room_name,'user':user_name});
   
   socket.on('check', function (data) {

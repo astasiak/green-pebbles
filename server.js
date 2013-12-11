@@ -1,4 +1,8 @@
-var io = require('socket.io').listen(8080);
+
+var connect = require('connect');
+connect.createServer(connect.static('client')).listen(8080);
+
+var io = require('socket.io').listen(8081);
 
 var rooms = {
   socket_room_map: {},
