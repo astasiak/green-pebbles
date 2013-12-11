@@ -2,9 +2,11 @@ $( document ).ready(function() {
 
   var room_name = $.url().param("room");
   var user_name = $.url().param("user");
-  if(room_name) {
-    $("title").text(room_name);
+  if(!room_name || !user_name) {
+    window.location.replace("index.html");
+    return;
   }
+  $("title").text("Ciottoli ["+room_name+"]");
   var socket = io.connect('http://localhost:8081');
   socket.emit("register",{'room':room_name,'user':user_name});
   

@@ -1,5 +1,27 @@
 html {
-background-color: #868A08;
+  background-color: #088A4B;
+}
+.main {
+  width: 530px;
+  margin: 100px auto;
+}
+#enterButton, .bigInput {
+  width: 500px;
+  text-align: center;
+  margin: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 30px;
+}
+#enterButton {
+  background-color: black;
+  border-color: yellow;
+  color: white;
+}
+#enterButton:hover {
+  background-color: #151515;
 }
 table {
   width: 100%;
