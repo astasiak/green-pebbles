@@ -1,0 +1,28 @@
+{
+  "name": "ciottoli",
+  "version": "0.0.1",
+  "description": "Great game",
+  "main": "server.js",
+  "dependencies": {
+    "connect": "~2.12.0",
+    "socket.io": "~0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/criceto-pigro/ciottoli.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "criceto-pigro",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/criceto-pigro/ciottoli/issues"
+  },
+  "homepage": "https://github.com/criceto-pigro/ciottoli"
+}
