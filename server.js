@@ -45,4 +45,9 @@ io.sockets.on('connection', function (socket) {
       io.sockets.socket(sendTo[i].socketId).emit('sit', message);
     };
   });
+  
+  socket.on('chat', function (data) {
+    var presence = rooms.getPresence(socket.id);
+    io.sockets.emit('chat', {username:presence.username,text:data.text});
+  });
 });

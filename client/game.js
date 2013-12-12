@@ -51,6 +51,19 @@ $( document ).ready(function() {
   $('.player').click(function(){
     socket.emit('sit_request',{position:$(this).attr('id')});
   });
+  
+  $('#chat-input').keypress(function (e) {
+    if (e.which == 13) { // on enter
+      socket.emit('chat',{text:$(this).val()});
+      $(this).val('');
+    }
+  });
+  
+  socket.on('chat', function(data) {
+    user = $('<span/>').addClass('username').append(data.username+': ');
+    text = $('<span/>').addClass('text').append(data.text);
+    $('#chat-history').append(user).append(text).append($('<br/>')).scrollTop(100000);
+  });
 });
 
 
