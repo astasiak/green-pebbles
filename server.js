@@ -1,9 +1,9 @@
 
 var port = process.env.PORT || 5000;
 var connect = require('connect');
-connect.createServer(connect.static('client')).listen(port);
+var app = connect.createServer(connect.static('client')).listen(port);
 
-var io = require('socket.io').listen(8081);
+var io = require('socket.io').listen(app);
 
 var rooms = {
   socket_room_map: {},

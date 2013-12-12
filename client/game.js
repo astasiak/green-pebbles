@@ -7,7 +7,7 @@ $( document ).ready(function() {
     return;
   }
   $("title").text("Ciottoli ["+room_name+"]");
-  var socket = io.connect('http://localhost:8081');
+  var socket = io.connect(window.location.hostname);
   socket.emit("register",{'room':room_name,'user':user_name});
   
   socket.on('check', function (data) {
