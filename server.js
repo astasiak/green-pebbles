@@ -1,6 +1,7 @@
 
+var port = process.env.PORT || 5000;
 var connect = require('connect');
-connect.createServer(connect.static('client')).listen(8080);
+connect.createServer(connect.static('client')).listen(port);
 
 var io = require('socket.io').listen(8081);
 
