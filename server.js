@@ -48,6 +48,9 @@ io.sockets.on('connection', function (socket) {
   
   socket.on('chat', function (data) {
     var presence = rooms.getPresence(socket.id);
-    io.sockets.emit('chat', {username:presence.username,text:data.text});
+    var sendTo = presence.room.members;
+    for (var i=0; i<sendTo.length; i++) {
+      io.sockets.socket(sendTo[i].socketId).emit('chat', {username:presence.username,text:data.text});
+    }
   });
 });
