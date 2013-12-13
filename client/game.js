@@ -64,6 +64,16 @@ $( document ).ready(function() {
     text = $('<span/>').addClass('text').append(data.text);
     $('#chat-history').append(user).append(text).append($('<br/>')).scrollTop(100000);
   });
+  
+  socket.on('registered', function(data) {
+    msg = $('<span/>').addClass('message').append(data.player+' joined the room');
+    $('#chat-history').append(msg).append($('<br/>')).scrollTop(100000);
+  });
+  
+  socket.on('disconnected', function(data) {
+    msg = $('<span/>').addClass('message').append(data.player+' left the room');
+    $('#chat-history').append(msg).append($('<br/>')).scrollTop(100000);
+  });
 });
 
 

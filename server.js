@@ -9,6 +9,14 @@ function Room(_name) {
   this.name = _name;
   this.players = [];
 }
+Room.prototype.removePlayer = function(socketId) {
+  for (var i=0; i<this.players.length; i++) {
+    if (this.players[i].socket == socketId ) {
+      this.players.splice(i,1);
+      break;
+    }
+  }
+}
 Room.prototype.emitOthers = function(socketId,msg,data) {
   for (var i=0; i<this.players.length; i++) {
     if (this.players[i].socket != socketId ) {
@@ -21,7 +29,7 @@ Room.prototype.emit = function(msg,data) {this.emitOthers(null,msg,data);}
 var rooms = {}; // name->room
 rooms.room = function(_name) {
   if(!this[_name]) {
-    this[_name] = new Room();
+    this[_name] = new Room(_name);
   }
   return this[_name];
 };
@@ -42,6 +50,8 @@ io.sockets.on('connection', function (socket) {
   socket.on('register', function (data) {
     var player = new Player(data.user,socket.id,data.room);
     players[socket.id] = player;
+    player.room.emit('registered', {player: player.name});
+    console.log("Registered ["+player.name+"] in room ["+player.room.name+"]");
   });
 
   socket.on('check', function (data) {
@@ -60,5 +70,13 @@ io.sockets.on('connection', function (socket) {
   socket.on('chat', function (data) {
     var player = players[socket.id];
     player.room.emit('chat', {username:player.name,text:data.text});
+  });
+  
+  socket.on('disconnect', function (data) {
+    var player = players[socket.id];
+    player.room.emit('disconnected', {player: player.name});
+    player.room.removePlayer(socket.id);
+    delete players[socket.id];
+    console.log("Disconnected ["+player.name+"] from room ["+player.room.name+"]");
   });
 });

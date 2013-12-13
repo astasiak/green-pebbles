@@ -15,6 +15,10 @@ html {
 #chat-history .username {
   font-weight: bold;
 }
+#chat-history .message {
+  font-style: italic;
+  color: #0B3B17;
+}
 #chat-input {
   width: 85%;
   margin: 5px;
