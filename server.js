@@ -4,6 +4,8 @@ var connect = require('connect');
 var app = connect.createServer(connect.static('client')).listen(port);
 
 var io = require('socket.io').listen(app);
+io.set('log level', 1);
+
 
 function Room(_name) {
   this.name = _name;
@@ -70,6 +72,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('chat', function (data) {
     var player = players[socket.id];
     player.room.emit('chat', {username:player.name,text:data.text});
+    console.log(" --chat ["+player.name+"]: ["+data.text+"]");
   });
   
   socket.on('disconnect', function (data) {
