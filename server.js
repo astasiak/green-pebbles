@@ -82,7 +82,7 @@ io.sockets.on('connection', function (socket) {
   handle(socket, 'register', function (data) {
     var player = new Player(data.user,socket.id,data.room);
     players[socket.id] = player;
-    player.room.emit('registered', {player: player.name});
+    player.room.emit('registered', {player: player.name, players: player.room.descriptor().players});
     player.emit('game_state', player.room.descriptor());
     console.log("Registered ["+player.name+"] in room ["+player.room.name+"]");
   });
@@ -111,8 +111,8 @@ io.sockets.on('connection', function (socket) {
   
   handle(socket, 'disconnect', function (data) {
     var player = players.player(socket.id);
-    player.room.emit('disconnected', {player: player.name});
     player.room.removePlayer(socket.id);
+    player.room.emit('disconnected', {player: player.name, players: player.room.descriptor().players});
     delete players[socket.id];
     console.log("Disconnected ["+player.name+"] from room ["+player.room.name+"]");
   });

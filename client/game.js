@@ -22,6 +22,14 @@ function check(id,dir) {
   }
 }
 
+function setPlayersBox(players) {
+  $('#players-box').empty();
+  players.sort();
+  for(var i=0;i<players.length;i++) {
+    $('#players-box').append($('<span/>').append(players[i])).append($('<br/>'));
+  }
+}
+
 $( document ).ready(function() {
   var room_name = $.url().param("room");
   var user_name = $.url().param("user");
@@ -74,11 +82,13 @@ $( document ).ready(function() {
   socket.on('registered', function(data) {
     msg = $('<span/>').addClass('message').append(data.player+' joined the room');
     $('#chat-history').append(msg).append($('<br/>')).scrollTop(100000);
+    setPlayersBox(data.players);
   });
   
   socket.on('disconnected', function(data) {
     msg = $('<span/>').addClass('message').append(data.player+' left the room');
     $('#chat-history').append(msg).append($('<br/>')).scrollTop(100000);
+    setPlayersBox(data.players);
   });
   
   socket.on('game_state', function(data) {

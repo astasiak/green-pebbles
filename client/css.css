@@ -5,12 +5,19 @@ html {
   width: 530px;
   margin: 100px auto;
 }
-#chat-history {
+#chat-history, #players-box {
   overflow-y: scroll;
-  background: #81F79F;
   border-radius: 5px;
   padding: 8px;
-  height: 100%;
+  margin: 5px 0px;
+}
+#players-box {
+  background: #C8FE2E;
+  height: 200px;
+}
+#chat-history {
+  background: #81F79F;
+  height: 200px;
 }
 #chat-history .username {
   font-weight: bold;
@@ -29,7 +36,6 @@ html {
   float: left;
 }
 .side-panel {
-  height: 300px;
   width: 25%;
   margin: 0;
   float: left;
