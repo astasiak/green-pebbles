@@ -1,3 +1,5 @@
+var STONES = 50;
+
 function takeSeat(position,player,me) {
   var slot = $('#'+position);
   if(player) {
@@ -38,12 +40,14 @@ $( document ).ready(function() {
     return;
   }
   $("title").text("Ciottoli ["+room_name+"]");
+  $(".rectRow").each(function(index){
+    thisId = $(this).attr('id');
+    for(var i=1;i<=STONES;i++) {
+      $(this).append('<td><div class="rect" id="r'+thisId+i+'"><div class="cell-number">'+i+'</div></td>');
+    }
+  });
   var socket = io.connect(window.location.hostname);
   socket.emit("register",{'room':room_name,'user':user_name});
-  
-  socket.on('check', function (data) {
-    check(data["id"],data["dir"]);
-  });
   
   $(".rect").click(function(){
     if($(this).hasClass("checked")) {
@@ -55,13 +59,6 @@ $( document ).ready(function() {
     }
   });
   
-  socket.on('sit', function (data) {
-    var position = data["position"];
-    var player = data["player"];
-    var me = data["you"];
-    takeSeat(position,player,me);
-  });
-  
   $('.player').click(function(){
     socket.emit('sit_request',{position:$(this).attr('id')});
   });
@@ -71,6 +68,29 @@ $( document ).ready(function() {
       socket.emit('chat',{text:$(this).val()});
       $(this).val('');
     }
+  });
+  
+  $('.rect').hover(function(event) {
+    $(this).find('.cell-number').css('left',event.clientX+10)
+      .css('top',event.clientY+20).show();
+    $(this).mousemove(function(event2){
+      $(this).find('.cell-number').css('left',event2.clientX+10)
+      .css('top',event2.clientY+20);
+    });
+  },function() {
+    $(this).find('.cell-number').hide();
+    $(this).unbind('mousemove');
+  });
+  
+  socket.on('check', function (data) {
+    check(data["id"],data["dir"]);
+  });
+  
+  socket.on('sit', function (data) {
+    var position = data["position"];
+    var player = data["player"];
+    var me = data["you"];
+    takeSeat(position,player,me);
   });
   
   socket.on('chat', function(data) {

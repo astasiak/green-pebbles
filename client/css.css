@@ -66,14 +66,25 @@ html {
   padding-top: 48px;
   border: 8px solid #F5DA81;
 }
-
 table {
   width: 100%;
 }
 table#players td {
   width: 50%;
 }
-.player, .rect {
+tr.rectRow td {
+  padding: 10px 0px;
+}
+.cell-number {
+  display: none;
+  position: fixed;
+  background-color: #FFF;
+  border: solid 1px #000;
+  border-radius: 5px;
+  padding: 4px;
+}
+.player {
+  background-color: #DDDDFF;
   border-style: solid;
   border-width: 2px;
   border-radius: 10px;
@@ -82,8 +93,10 @@ table#players td {
   text-align: center;
   font-size: 40px;
 }
-.player {
-  background-color: #DDDDFF;
+.rect {
+  background-color: #01DFA5;
+  height: 100px;
+  border: 2px outset #01DFA5;
 }
 .player.empty {
   background-color: #0B3B17;
@@ -95,18 +108,18 @@ table#players td {
 .player.empty:hover {
   background-color: #0B610B;
 }
-.rect {
-  background-color: #F3F781;
-}
 .rect:hover {
-  background-color: #F2F5A9;
+  background-color: #00FFBF;
+  border-color: #00FFBF;
 }
 .rect.checked {
-  background-color: #5882FA;
+  background-color: #9A2EFE;
+  border-color: #9A2EFE;
 }
 .rect.checked:hover {
-  background-color: #58ACFA;
+  background-color: #AC58FA;
+  border-color: #AC58FA;
 }
 .async {
-  border-color: red;
+  border-width: 0px;
 }
