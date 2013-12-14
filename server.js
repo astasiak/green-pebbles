@@ -10,6 +10,19 @@ io.set('log level', 1);
 function Room(_name) {
   this.name = _name;
   this.players = [];
+  this.gameState = {};
+  this.seats = {}
+}
+Room.prototype.descriptor = function() {
+  var playerNames = [];
+  for (var i=0; i<this.players.length; i++) {
+    playerNames.push(this.players[i].name);
+  }
+  return {
+    players: playerNames,
+    gameState: this.gameState,
+    seats: this.seats
+  }
 }
 Room.prototype.removePlayer = function(socketId) {
   for (var i=0; i<this.players.length; i++) {
@@ -53,17 +66,22 @@ io.sockets.on('connection', function (socket) {
     var player = new Player(data.user,socket.id,data.room);
     players[socket.id] = player;
     player.room.emit('registered', {player: player.name});
+    player.emit('game_state', player.room.descriptor());
     console.log("Registered ["+player.name+"] in room ["+player.room.name+"]");
   });
 
   socket.on('check', function (data) {
     var player = players[socket.id];
+    console.log(""+data.id);
+    player.room.gameState[data.id] = data.dir;
     player.room.emit('check', data);
   });
   
   socket.on('sit_request', function (data) {
     var player = players[socket.id];
-    var message = {position: data['position'], player: player.name};
+    var position = data['position'];
+    player.room.seats[position] = player.name;
+    var message = {position: position, player: player.name};
     player.room.emitOthers(socket.id,'sit',message);
     message['you'] = true;
     player.emit('sit',message);
