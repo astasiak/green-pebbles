@@ -60,9 +60,26 @@ Player.prototype.emit = function(msg,data) {
 }
 
 var players = {}; // socket->user
+players.player = function(socketId) {
+  if(this[socketId]) {
+    return this[socketId];
+  } else {
+    throw "not found user for socket \""+socketId+"\"";
+  }
+}
+
+function handle(socket,event,f) {
+  socket.on(event,function(data) {
+    try {
+      f(data);
+    } catch(err) {
+      console.log("Error when processing ["+event+"]:["+err+"]");
+    }
+  });
+}
 
 io.sockets.on('connection', function (socket) {
-  socket.on('register', function (data) {
+  handle(socket, 'register', function (data) {
     var player = new Player(data.user,socket.id,data.room);
     players[socket.id] = player;
     player.room.emit('registered', {player: player.name});
@@ -70,15 +87,14 @@ io.sockets.on('connection', function (socket) {
     console.log("Registered ["+player.name+"] in room ["+player.room.name+"]");
   });
 
-  socket.on('check', function (data) {
-    var player = players[socket.id];
-    console.log(""+data.id);
+  handle(socket, 'check', function (data) {
+    var player = players.player(socket.id);
     player.room.gameState[data.id] = data.dir;
     player.room.emit('check', data);
   });
   
-  socket.on('sit_request', function (data) {
-    var player = players[socket.id];
+  handle(socket, 'sit_request', function (data) {
+    var player = players.player(socket.id);
     var position = data['position'];
     player.room.seats[position] = player.name;
     var message = {position: position, player: player.name};
@@ -87,14 +103,14 @@ io.sockets.on('connection', function (socket) {
     player.emit('sit',message);
   });
   
-  socket.on('chat', function (data) {
-    var player = players[socket.id];
+  handle(socket, 'chat', function (data) {
+    var player = players.player(socket.id);
     player.room.emit('chat', {username:player.name,text:data.text});
     console.log(" --chat ["+player.name+"]: ["+data.text+"]");
   });
   
-  socket.on('disconnect', function (data) {
-    var player = players[socket.id];
+  handle(socket, 'disconnect', function (data) {
+    var player = players.player(socket.id);
     player.room.emit('disconnected', {player: player.name});
     player.room.removePlayer(socket.id);
     delete players[socket.id];
