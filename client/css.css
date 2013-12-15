@@ -108,7 +108,7 @@ tr.rectRow td {
 .player.empty:hover {
   background-color: #0B610B;
 }
-.rect:hover {
+.rect.hover {
   background-color: #00FFBF;
   border-color: #00FFBF;
 }
@@ -116,7 +116,7 @@ tr.rectRow td {
   background-color: #9A2EFE;
   border-color: #9A2EFE;
 }
-.rect.checked:hover {
+.rect.checked.hover {
   background-color: #AC58FA;
   border-color: #AC58FA;
 }

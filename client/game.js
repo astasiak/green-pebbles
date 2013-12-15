@@ -43,7 +43,7 @@ $( document ).ready(function() {
   $(".rectRow").each(function(index){
     thisId = $(this).attr('id');
     for(var i=1;i<=STONES;i++) {
-      $(this).append('<td><div class="rect" id="r'+thisId+i+'"><div class="cell-number">'+i+'</div></td>');
+      $(this).append('<td><div class="rect" id="'+thisId+i+'"><div class="cell-number">'+i+'</div></td>');
     }
   });
   var socket = io.connect(window.location.hostname);
@@ -71,15 +71,22 @@ $( document ).ready(function() {
   });
   
   $('.rect').hover(function(event) {
-    $(this).find('.cell-number').css('left',event.clientX+10)
-      .css('top',event.clientY+20).show();
-    $(this).mousemove(function(event2){
-      $(this).find('.cell-number').css('left',event2.clientX+10)
-      .css('top',event2.clientY+20);
-    });
+    $(this).find('.cell-number').css('left',event.clientX+10).css('top',event.clientY+20).show();
+    var row = $(this).closest('.rectRow');
+    var rowIdLen = row.attr('id').length;
+    var id = $(this).attr('id');
+    var prefix = id.substring(0,rowIdLen);
+    var number = id.substring(rowIdLen);
+    for(var i=1;i<=number;i++) {
+      row.find('#'+prefix+i).addClass('hover');
+    }
   },function() {
     $(this).find('.cell-number').hide();
-    $(this).unbind('mousemove');
+    $('.rect').removeClass('hover');
+  });
+  
+  $('.cell-number').mouseenter(function() {
+    $(this).hide();
   });
   
   socket.on('check', function (data) {
