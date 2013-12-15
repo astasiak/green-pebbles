@@ -115,7 +115,7 @@ io.sockets.on('connection', function (socket) {
   handle(socket, 'new_game', function (data) {
     var player = players.player(socket.id);
     player.room.newGame();
-    player.emit('game_state', player.room.descriptor());
+    player.room.emit('game_state', player.room.descriptor());
   });
   
   handle(socket, 'disconnect', function (data) {
