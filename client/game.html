@@ -10,9 +10,16 @@
 </head>
 <body>
 <div class="game-panel">
-<table id="players"><tr>
-<td><div class="player empty" id="player1">sit down</div></td>
-<td><div class="player empty" id="player2">sit down</div></td>
+<table class="player-box"><tr id="playerA">
+<td><div class="player empty">sit down</div></td>
+<td>
+  <div class="small-points">
+    <div></div><div></div><div></div>
+  </div>
+  <div class="big-points">
+    <div></div><div></div><div></div>
+  </div>
+</td>
 </tr></table>
 <table id="board" board="0">
 <tr class="rectRow" id="rowA">
@@ -20,6 +27,17 @@
 <tr class="rectRow" id="rowB">
 </tr>
 </table>
+<table class="player-box"><tr id="playerB">
+<td><div class="player empty">sit down</div></td>
+<td>
+  <div class="small-points">
+    <div></div><div></div><div></div>
+  </div>
+  <div class="big-points">
+    <div></div><div></div><div></div>
+  </div>
+</td>
+</tr></table>
 </div>
 <div class="side-panel">
   <div id="players-box"></div>

@@ -1,7 +1,21 @@
 var STONES = 50;
 
+function setPoints(player,small,big) {
+  var partial = function(selector,value) {
+    var points = $('tr#'+player+' '+selector+' div');
+    points.removeClass('point');
+    points.each(function(index) {
+      if(index<value) {
+        $(this).addClass('point');
+      }
+    });
+  }
+  partial('.small-points',small);
+  partial('.big-points',big);
+}
+
 function takeSeat(position,player,me) {
-  var slot = $('#'+position);
+  var slot = $('#'+position+' .player');
   if(player) {
     slot.text(player).removeClass("empty");
     if(me) {
@@ -60,7 +74,7 @@ $( document ).ready(function() {
   });
   
   $('.player').click(function(){
-    socket.emit('sit_request',{position:$(this).attr('id')});
+    socket.emit('sit_request',{position:$(this).closest('tr').attr('id')});
   });
   
   $('#chat-input').keypress(function (e) {

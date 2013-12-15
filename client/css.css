@@ -68,8 +68,9 @@ html {
 }
 table {
   width: 100%;
+  border-collapse: collapse;
 }
-table#players td {
+table.player-box td {
   width: 50%;
 }
 tr.rectRow td {
@@ -122,4 +123,29 @@ tr.rectRow td {
 }
 .async {
   border-width: 0px;
+}
+.small-points, .big-points {
+  display: inline-block;
+}
+.small-points div {
+  background-color: #0F0;
+  width: 16px;
+  height: 16px;
+  border-radius: 10px;
+  border: solid 2px #DFD;
+  margin: 0px 3px;
+  display: inline-block;
+}
+.big-points div {
+  background-color: #0F0;
+  width: 30px;
+  height: 30px;
+  border-radius: 19px;
+  border: solid 4px #DFD;
+  margin: 0px 5px;
+  display: inline-block;
+}
+div.point {
+  background-color: #F00;
+  border-color: #FDD;
 }
