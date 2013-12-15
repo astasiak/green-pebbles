@@ -13,6 +13,9 @@ function Room(_name) {
   this.gameState = {};
   this.seats = {}
 }
+Room.prototype.newGame = function() {
+  this.gameState = {};
+}
 Room.prototype.descriptor = function() {
   var playerNames = [];
   for (var i=0; i<this.players.length; i++) {
@@ -107,6 +110,12 @@ io.sockets.on('connection', function (socket) {
     var player = players.player(socket.id);
     player.room.emit('chat', {username:player.name,text:data.text});
     console.log(" --chat ["+player.name+"]: ["+data.text+"]");
+  });
+  
+  handle(socket, 'new_game', function (data) {
+    var player = players.player(socket.id);
+    player.room.newGame();
+    player.emit('game_state', player.room.descriptor());
   });
   
   handle(socket, 'disconnect', function (data) {

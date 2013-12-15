@@ -103,6 +103,10 @@ $( document ).ready(function() {
     $(this).hide();
   });
   
+  $('.new-game').click(function(){
+    socket.emit('new_game');
+  });
+  
   socket.on('check', function (data) {
     check(data["id"],data["dir"]);
   });
@@ -134,6 +138,7 @@ $( document ).ready(function() {
   
   socket.on('game_state', function(data) {
     console.log('Game state synchronization');
+    $('.rect').removeClass('checked');
     var keys = Object.keys(data.gameState);
     for(var keyId in keys) {
       var key = keys[keyId];
@@ -142,7 +147,13 @@ $( document ).ready(function() {
     var seats = Object.keys(data.seats);
     for(var seatId in seats) {
       var seat = seats[seatId];
-      takeSeat(seat,data.seats[seat]);
+      var player = data.seats[seat];
+      var me = false;
+      if(player==user_name) {
+        // FIXME: problem about two players with same name
+        me = true;
+      }
+      takeSeat(seat,player,me);
     }
   });
 });

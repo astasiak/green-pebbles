@@ -84,6 +84,20 @@ tr.rectRow td {
   border-radius: 5px;
   padding: 4px;
 }
+.new-game {
+  background-color: #000;
+  color: #AFA;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  font-size: 24px;
+}
+.new-game:hover {
+  background-color: #220;
+}
 .player {
   background-color: #DDDDFF;
   border-style: solid;
@@ -93,11 +107,6 @@ tr.rectRow td {
   padding: 10px;
   text-align: center;
   font-size: 40px;
-}
-.rect {
-  background-color: #01DFA5;
-  height: 100px;
-  border: 2px outset #01DFA5;
 }
 .player.empty {
   background-color: #0B3B17;
@@ -109,17 +118,25 @@ tr.rectRow td {
 .player.empty:hover {
   background-color: #0B610B;
 }
+.rect {
+  background-color: #01DFA5;
+  height: 100px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #51FFF5 #008F55 #008F55 #51FFF5;
+}
 .rect.hover {
   background-color: #00FFBF;
-  border-color: #00FFBF;
+  border-color: #DDFFFF #00AF6F #00AF6F #DDFFFF;
 }
 .rect.checked {
   background-color: #9A2EFE;
-  border-color: #9A2EFE;
+  border-color: #EA7EFF #6A00AE #4A00AE #EA7EFF;
 }
 .rect.checked.hover {
   background-color: #AC58FA;
-  border-color: #AC58FA;
+  border-color: #FCA8FF #5C08AA #5C08AA #FCA8FF;
 }
 .async {
   border-width: 0px;
