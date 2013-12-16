@@ -183,3 +183,21 @@ div.point {
   background-color: #F00;
   border-color: #FDD;
 }
+.glass {
+  position:fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #000;
+  opacity: 0.7;
+  display: none;
+}
+.circle {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  background-color: #FF0;
+  position: fixed;
+  display: none;
+}

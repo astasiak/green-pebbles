@@ -47,6 +47,7 @@ function setPlayersBox(players) {
 }
 
 $( document ).ready(function() {
+  Glass.start();
   var room_name = $.url().param("room");
   var user_name = $.url().param("user");
   if(!room_name || !user_name) {
@@ -157,14 +158,43 @@ $( document ).ready(function() {
     for(var seatId in seats) {
       var seat = seats[seatId];
       var player = data.seats[seat];
-      var me = false;
-      if(player==user_name) {
-        // FIXME: problem about two players with same name
-        me = true;
-      }
-      takeSeat(seat,player,me);
+      takeSeat(seat,player,(player==user_name));
     }
+    Glass.stop();
   });
 });
 
+var Glass = {
+  initAnimation: function() {
+    Glass.angle = 0;
+    Glass.radius = Math.min(window.innerHeight,window.innerWidth)/4;
+    Glass.circle = $(".circle");
+    Glass.circleRadius = Glass.circle.height()/2;
+    Glass.baseX = window.innerWidth/2 - Glass.circleRadius;
+    Glass.baseY = window.innerHeight/2 - Glass.circleRadius;
+  },
+  animate: function() {
+    Glass.angle = (Glass.angle+0.2);
+    var x = Glass.baseX + Math.cos(Glass.angle)*Glass.radius;
+    var y = Glass.baseY + Math.sin(Glass.angle)*Glass.radius;
+    Glass.circle.css('top',y).css('left',x);
+  },
+  start: function() {
+    if(Glass.running) {
+      return;
+    }
+    Glass.running = true;
+    Glass.initAnimation();
+    $(window).resize(Glass.initAnimation);
+    Glass.interval = setInterval(Glass.animate,30);
+    $('.glass, .circle').show();
+  },
+  stop: function() {
+    Glass.running = false;
+    $('.glass, .circle').hide();
+    $(window).unbind('resize',Glass.initAnimation);
+    clearInterval(Glass.interval);
+    Glass.circle.css('top','-40px').css('left','-40px');
+  }
+};
 
