@@ -43,6 +43,14 @@ Room.prototype.emitOthers = function(socketId,msg,data) {
   }
 }
 Room.prototype.emit = function(msg,data) {this.emitOthers(null,msg,data);}
+Room.prototype.hasPlayer = function(name) {
+  for (var i=0; i<this.players.length; i++) {
+    if (this.players[i].name == name ) {
+      return true;
+    }
+  }
+  return false;
+}
 
 var rooms = {}; // name->room
 rooms.room = function(_name) {
@@ -83,6 +91,10 @@ function handle(socket,event,f) {
 
 io.sockets.on('connection', function (socket) {
   handle(socket, 'register', function (data) {
+    if(rooms.room(data.room).hasPlayer(data.user)) {
+      socket.emit('username_collision');
+      return;
+    }
     var player = new Player(data.user,socket.id,data.room);
     players[socket.id] = player;
     player.room.emit('registered', {player: player.name, players: player.room.descriptor().players});

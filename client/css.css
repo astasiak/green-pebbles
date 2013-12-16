@@ -58,6 +58,15 @@ html {
 #enterButton:hover {
   background-color: #151515;
 }
+#error {
+  background-color: #500;
+  color: #f66;
+  font-size: 20px;
+  text-align: center;
+  display: none;
+  border-radius: 5px;
+  padding: 5px;
+}
 #mainAlert {
   display: none;
   background-color: #DBA901;

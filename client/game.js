@@ -54,6 +54,7 @@ $( document ).ready(function() {
     return;
   }
   $("title").text("Ciottoli ["+room_name+"]");
+  
   $(".rectRow").each(function(index){
     thisId = $(this).attr('id');
     for(var i=1;i<=STONES;i++) {
@@ -105,6 +106,10 @@ $( document ).ready(function() {
   
   $('.new-game').click(function(){
     socket.emit('new_game');
+  });
+  
+  socket.on('username_collision', function(data) {
+    window.location.replace("index.html?error=name_used&details="+user_name);
   });
   
   socket.on('check', function (data) {

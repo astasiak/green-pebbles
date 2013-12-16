@@ -17,9 +17,18 @@ function submit() {
 }
 
 $( document ).ready(function() {
+
   $("#enterButton").click(submit);
   
   $("#mainAlert").click(alertHide);
+  
+  $("#error").click(function() {$(this).slideUp();});
+  
+  var error = $.url().param("error");
+  if(error && error=='name_used') {
+    var user_used = $.url().param("details");
+    $('#error').show().text('Sorry, there is already "'+user_used+'" in the room');
+  }
   
   $('.bigInput').keypress(function (e) {
     if (e.which == 13) { // on enter
