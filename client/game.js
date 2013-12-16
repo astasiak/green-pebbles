@@ -104,8 +104,12 @@ $( document ).ready(function() {
     $(this).hide();
   });
   
-  $('.new-game').click(function(){
+  $('#new-game').click(function(){
     socket.emit('new_game');
+  });
+  
+  $('#leave-room').click(function(){
+    window.location.replace("index.html");
   });
   
   socket.on('username_collision', function(data) {

@@ -13,7 +13,7 @@ html {
 }
 #players-box {
   background: #C8FE2E;
-  height: 200px;
+  height: 100px;
 }
 #chat-history {
   background: #81F79F;
@@ -93,19 +93,27 @@ tr.rectRow td {
   border-radius: 5px;
   padding: 4px;
 }
-.new-game {
+#new-game, #leave-room {
   background-color: #000;
-  color: #AFA;
   border-style: solid;
   border-width: 2px;
   border-radius: 10px;
-  margin: 10px;
-  padding: 10px;
+  margin: 5px;
+  padding: 6px;
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
 }
-.new-game:hover {
-  background-color: #220;
+#new-game {
+  color: #FF5;
+}
+#leave-room {
+  color: #0FF;
+}
+#new-game:hover {
+  background-color: #440;
+}
+#leave-room:hover {
+  background-color: #044;
 }
 .player {
   background-color: #DDDDFF;
