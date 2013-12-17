@@ -197,7 +197,15 @@ div.point {
   height: 40px;
   width: 40px;
   border-radius: 20px;
-  background-color: #FF0;
   position: fixed;
   display: none;
+}
+#circle1 {
+  background-color: #FF0;
+}
+#circle2 {
+  background-color: #77F;
+}
+#circle3 {
+  background-color: #D44;
 }

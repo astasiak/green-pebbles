@@ -167,17 +167,26 @@ $( document ).ready(function() {
 var Glass = {
   initAnimation: function() {
     Glass.angle = 0;
-    Glass.radius = Math.min(window.innerHeight,window.innerWidth)/4;
-    Glass.circle = $(".circle");
+    Glass.radius = Math.min(window.innerHeight,window.innerWidth/2)/4;
+    Glass.circle = $("#circle1");
+    Glass.circle2 = $("#circle2");
+    Glass.circle3 = $("#circle3");
     Glass.circleRadius = Glass.circle.height()/2;
     Glass.baseX = window.innerWidth/2 - Glass.circleRadius;
     Glass.baseY = window.innerHeight/2 - Glass.circleRadius;
+    Glass.deg120 = 2*Math.PI/3
   },
   animate: function() {
-    Glass.angle = (Glass.angle+0.2);
-    var x = Glass.baseX + Math.cos(Glass.angle)*Glass.radius;
-    var y = Glass.baseY + Math.sin(Glass.angle)*Glass.radius;
+    Glass.angle = (Glass.angle+0.05);
+    var x = Glass.baseX + 2*Math.cos(Glass.angle)*Glass.radius;
+    var y = Glass.baseY + Math.sin(2*Glass.angle)*Glass.radius;
+    var x2 = Glass.baseX + 2*Math.cos(Glass.angle+Glass.deg120)*Glass.radius;
+    var y2 = Glass.baseY + Math.sin(2*Glass.angle+2*Glass.deg120)*Glass.radius;
+    var x3 = Glass.baseX + 2*Math.cos(Glass.angle-Glass.deg120)*Glass.radius;
+    var y3 = Glass.baseY + Math.sin(2*Glass.angle-2*Glass.deg120)*Glass.radius;
     Glass.circle.css('top',y).css('left',x);
+    Glass.circle2.css('top',y2).css('left',x2);
+    Glass.circle3.css('top',y3).css('left',x3);
   },
   start: function() {
     if(Glass.running) {
