@@ -17,14 +17,16 @@ function setPoints(player,small,big) {
 function takeSeat(position,player,me) {
   var slot = $('#'+position+' .player');
   if(player) {
-    slot.text(player).removeClass("empty");
+    slot.removeClass("empty");
+    slot.find("span").text(player);
     if(me) {
       slot.addClass('me');
     } else {
       slot.removeClass('me');
     }
   } else {
-    slot.text('sit down').removeClass('me').addClass("empty");
+    slot.removeClass('me').addClass("empty");
+    slot.find("span").text('sit down');
   }
 }
 
@@ -77,6 +79,11 @@ $( document ).ready(function() {
   
   $('.player').click(function(){
     socket.emit('sit_request',{position:$(this).closest('tr').attr('id')});
+  });
+  
+  $('.standup').click(function(event){
+    socket.emit('stand_up',{position:$(this).closest('tr').attr('id')});
+    event.stopPropagation();
   });
   
   $('#chat-input').keypress(function (e) {
@@ -147,7 +154,6 @@ $( document ).ready(function() {
   });
   
   socket.on('game_state', function(data) {
-    console.log('Game state synchronization');
     $('.rect').removeClass('checked');
     var keys = Object.keys(data.gameState);
     for(var keyId in keys) {

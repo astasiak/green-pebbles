@@ -30,10 +30,21 @@ Room.prototype.descriptor = function() {
 Room.prototype.removePlayer = function(socketId) {
   for (var i=0; i<this.players.length; i++) {
     if (this.players[i].socket == socketId ) {
+      player = this.players[i];
       this.players.splice(i,1);
       break;
     }
   }
+  if(player) {
+    playersPositions = []
+    for (var position in this.seats) {
+      if(this.seats[position]==player.name) {
+        this.seats[position] = undefined;
+        playersPositions.push(position);
+      }
+    }
+  }
+  return playersPositions;
 }
 Room.prototype.emitOthers = function(socketId,msg,data) {
   for (var i=0; i<this.players.length; i++) {
@@ -111,6 +122,9 @@ io.sockets.on('connection', function (socket) {
   handle(socket, 'sit_request', function (data) {
     var player = players.player(socket.id);
     var position = data['position'];
+    if(player.room.seats[position]) {
+      return; // cannot sit on occupied seat
+    }
     player.room.seats[position] = player.name;
     var message = {position: position, player: player.name};
     player.room.emitOthers(socket.id,'sit',message);
@@ -118,10 +132,20 @@ io.sockets.on('connection', function (socket) {
     player.emit('sit',message);
   });
   
+  handle(socket, 'stand_up', function (data) {
+    var player = players.player(socket.id);
+    var position = data['position'];
+    if(player.room.seats[position]!=player.name) {
+      return; // cannot stand up from not your seat
+    }
+    player.room.seats[position] = undefined;
+    player.room.emit('sit', {position: position});
+  });
+  
   handle(socket, 'chat', function (data) {
     var player = players.player(socket.id);
     player.room.emit('chat', {username:player.name,text:data.text});
-    console.log(" --chat ["+player.name+"]: ["+data.text+"]");
+    console.log(" --chat ["+player.name+"@"+player.room.name+"]: ["+data.text+"]");
   });
   
   handle(socket, 'new_game', function (data) {
@@ -132,7 +156,10 @@ io.sockets.on('connection', function (socket) {
   
   handle(socket, 'disconnect', function (data) {
     var player = players.player(socket.id);
-    player.room.removePlayer(socket.id);
+    positions = player.room.removePlayer(socket.id);
+    if(positions) for (var i=0; i<positions.length; i++) {
+      player.room.emit('sit', {position: positions[i]});
+    }
     player.room.emit('disconnected', {player: player.name, players: player.room.descriptor().players});
     delete players[socket.id];
     console.log("Disconnected ["+player.name+"] from room ["+player.room.name+"]");

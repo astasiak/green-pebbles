@@ -116,6 +116,7 @@ tr.rectRow td {
   background-color: #044;
 }
 .player {
+  position: relative;
   background-color: #DDDDFF;
   border-style: solid;
   border-width: 2px;
@@ -199,6 +200,27 @@ div.point {
   border-radius: 20px;
   position: fixed;
   display: none;
+}
+.standup {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #000;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #fff;
+  color: #fff;
+  padding: 0px 4px;
+  font-size: 20px;
+  display: none;
+}
+.standup:hover {
+  color: #000;
+  background-color: #c00;
+}
+.me .standup {
+  display: inline;
 }
 #circle1 {
   background-color: #FF0;
