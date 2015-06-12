@@ -56,7 +56,7 @@ $( document ).ready(function() {
     window.location.replace("index.html");
     return;
   }
-  $("title").text("Ciottoli ["+room_name+"]");
+  $("title").text("Green pebbles ["+room_name+"]");
   
   $(".rectRow").each(function(index){
     thisId = $(this).attr('id');

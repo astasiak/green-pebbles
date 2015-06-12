@@ -1,7 +1,7 @@
 {
-  "name": "ciottoli",
+  "name": "green-pebbles",
   "version": "0.0.1",
-  "description": "Great game",
+  "description": "Green pebbles - node.js game",
   "main": "server.js",
   "dependencies": {
     "connect": "~2.12.0",
@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/criceto-pigro/ciottoli.git"
+    "url": "git://github.com/astasiak/green-pebbles.git"
   },
   "keywords": [
     "game"
   ],
-  "author": "criceto-pigro",
+  "author": "astasiak",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/criceto-pigro/ciottoli/issues"
+    "url": "https://github.com/astasiak/green-pebbles"
   },
-  "homepage": "https://github.com/criceto-pigro/ciottoli"
+  "homepage": "https://github.com/astasiak/green-pebbles"
 }
